@@ -1,0 +1,16 @@
+{
+    "name" : "hexim/zcash-bundle",
+    "description" : "Symfony ZCash RPC Bundle",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Lubomir Spacek",
+        "email": "hexim@hexim.cz"
+    }],
+    "keywords" : ["zcash symfony bundle"],
+    "license" : "MIT",
+    "autoload" : {
+        "psr-4" : {
+            "Hexim\\HeximZcashBundle\\" : ""
+        }
+    }
+}
