@@ -1,0 +1,4 @@
+services:
+#    hexim_zcash.example:
+#        class: Hexim\HeximZcashBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
