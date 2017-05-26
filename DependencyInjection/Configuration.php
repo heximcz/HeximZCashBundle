@@ -20,9 +20,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('hexim_zcash');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('rpc_url')->defaultValue("http://127.0.0.1")->end()
+                ->scalarNode('rpc_password')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('rpc_user')->isRequired()->cannotBeEmpty()->end()
+                ->integerNode('rpc_port')->defaultValue("8232")->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

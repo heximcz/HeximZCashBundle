@@ -22,6 +22,9 @@ class HeximZcashExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $config['rpc_address'] = $config['rpc_url'].':'.$config['rpc_port'];
+        $container->setParameter("hexim_zcash.options", $config);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
