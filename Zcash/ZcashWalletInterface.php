@@ -10,9 +10,10 @@ interface ZcashWalletInterface
 {
 
     public function getWalletInfo();
-    public function listTransactions();
+    public function listTransactions($count = 10, $from = 0, $includeWatchOnly = false);
     public function getNewAddress();
     public function z_getNewAddress();
+    public function getReceivedByAddress($address,$confirmed = 1);
 
 /*
 addmultisigaddress nrequired ["key",...] ( "account" )

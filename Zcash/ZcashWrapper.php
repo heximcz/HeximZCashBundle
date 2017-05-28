@@ -31,7 +31,7 @@ class ZcashWrapper
     /**
      * @var int $return_status
      */
-    private $return_status;
+    private $return_status = 0;
 
     /**
      * ZcashWrapper constructor.
@@ -46,7 +46,7 @@ class ZcashWrapper
 
     /**
      * @param array $command
-     * @return array
+     * @return array|bool
      * @throws \Exception
      */
     public function rpcZcashCommand($command)
@@ -54,15 +54,16 @@ class ZcashWrapper
         if (is_array($command))
         {
             $this->postCommand($command);
-            $this->checkReturnCodeStatus();
-            return json_decode($this->return_data,true, 512,JSON_BIGINT_AS_STRING);
+            if ($this->checkReturnCodeStatus())
+                return json_decode($this->return_data,true, 512,JSON_BIGINT_AS_STRING);
+            return $this->return_data;
         }
         throw new \Exception("RPC input command is not an array!");
     }
 
-
     /**
-     * @param array $command
+     * @param $command
+     * @throws \Exception
      */
     private function postCommand($command)
     {
@@ -84,7 +85,9 @@ class ZcashWrapper
     private function checkReturnCodeStatus()
     {
         if ($this->return_status == 200)
-            return;
+            return true;
+        if ($this->return_data === false)
+            return false;
         if ($this->return_status == 401)
             throw new \Exception("Unauthorized!");
         if ($this->return_status == 403)

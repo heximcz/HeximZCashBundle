@@ -2,3 +2,6 @@ services:
     hexim_zcash.wallet:
         class: Hexim\HeximZcashBundle\Zcash\ZcashWallet
         arguments: ["%hexim_zcash.options%"]
+    hexim_zcash.util:
+        class: Hexim\HeximZcashBundle\Zcash\ZcashUtil
+        arguments: ["%hexim_zcash.options%"]
