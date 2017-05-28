@@ -69,7 +69,6 @@ class ZcashWrapper
 
     /**
      * @param $command
-     * @throws \Exception
      */
     private function postCommand($command)
     {
@@ -85,9 +84,6 @@ class ZcashWrapper
         curl_close($con);
     }
 
-    /**
-     * @throws \Exception
-     */
     private function checkReturnCodeStatus()
     {
         if ($this->return_status == 200)
