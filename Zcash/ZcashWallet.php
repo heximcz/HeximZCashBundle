@@ -6,7 +6,7 @@
 
 namespace Hexim\HeximZcashBundle\Zcash;
 
-class ZcashWallet extends ZcashWalletAbstract implements ZcashWalletInterface
+class ZcashWallet extends ZcashAbstract implements ZcashWalletInterface
 {
 
     /**
@@ -14,7 +14,7 @@ class ZcashWallet extends ZcashWalletAbstract implements ZcashWalletInterface
      */
     public function getWalletInfo()
     {
-        return $this->getRpcResult('getwalletinfo',['aaa']);
+        return $this->getRpcResult('getwalletinfo',[]);
     }
 
     /**

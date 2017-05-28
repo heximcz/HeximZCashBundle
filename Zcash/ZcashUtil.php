@@ -7,7 +7,7 @@
 namespace Hexim\HeximZcashBundle\Zcash;
 
 
-class ZcashUtil extends ZcashWalletAbstract implements ZcashUtilInterface
+class ZcashUtil extends ZcashAbstract implements ZcashUtilInterface
 {
     /**
      * @param string $address

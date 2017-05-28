@@ -7,7 +7,7 @@
 namespace Hexim\HeximZcashBundle\Zcash;
 
 
-class ZcashWalletAbstract
+class ZcashAbstract
 {
     /**
      * @var ZcashWrapper $wrapper
