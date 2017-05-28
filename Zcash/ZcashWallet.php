@@ -14,7 +14,7 @@ class ZcashWallet extends ZcashWalletAbstract implements ZcashWalletInterface
      */
     public function getWalletInfo()
     {
-        return $this->getRpcResult('getwalletinfo',[]);
+        return $this->getRpcResult('getwalletinfo',['aaa']);
     }
 
     /**

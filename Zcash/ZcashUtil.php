@@ -20,6 +20,10 @@ class ZcashUtil extends ZcashWalletAbstract implements ZcashUtilInterface
         );
     }
 
+    /**
+     * @param string $address
+     * @return array|bool
+     */
     public function z_validateAddress($address)
     {
         return $this->getRpcResult('z_validateaddress',

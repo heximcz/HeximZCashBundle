@@ -34,6 +34,11 @@ class ZcashWalletAbstract
     protected $params;
 
     /**
+     * @var string $error
+     */
+    protected $error = false;
+
+    /**
      * ZcashWallet constructor.
      * @param array $params
      */
@@ -41,6 +46,14 @@ class ZcashWalletAbstract
     {
         $this->params = $params;
         $this->wrapper = new ZcashWrapper($params);
+    }
+
+    /**
+     * @return string
+     */
+    public function getError()
+    {
+        return $this->error;
     }
 
     /**
@@ -59,13 +72,26 @@ class ZcashWalletAbstract
         return $this->checkResponse();
     }
 
+    /**
+     * @return array|bool
+     */
     protected function checkResponse()
     {
-        if (is_null($this->result['error']) && $this->result['result'] != '')
+        $this->error = false;
+        if (isset($this->result['result'])) {
+            if (!is_null($this->result['error']))
+                $this->error = $this->result['error'];
             return $this->result;
+        }
+        if (is_string($this->result))
+            $this->error = $this->result;
         return $this->result = false;
     }
 
+    /**
+     * @param array $array
+     * @return array
+     */
     protected function mergeCommand($array)
     {
         return array_merge($this->defaultCommand, $array);
@@ -84,6 +110,10 @@ class ZcashWalletAbstract
         }
     }
 
+    /**
+     * @param string $value
+     * @return string
+     */
     protected function convertScientificFloat($value)
     {
         return number_format($value, 8);

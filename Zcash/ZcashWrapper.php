@@ -31,7 +31,11 @@ class ZcashWrapper
     /**
      * @var int $return_status
      */
-    private $return_status = 0;
+    private $return_status = false;
+    /**
+     * @var string $error
+     */
+    private $error;
 
     /**
      * ZcashWrapper constructor.
@@ -51,12 +55,14 @@ class ZcashWrapper
      */
     public function rpcZcashCommand($command)
     {
+        $this->error = false;
         if (is_array($command))
         {
             $this->postCommand($command);
-            if ($this->checkReturnCodeStatus())
+            $this->checkReturnCodeStatus();
+            if (!$this->error)
                 return json_decode($this->return_data,true, 512,JSON_BIGINT_AS_STRING);
-            return $this->return_data;
+            return $this->error;
         }
         throw new \Exception("RPC input command is not an array!");
     }
@@ -85,21 +91,38 @@ class ZcashWrapper
     private function checkReturnCodeStatus()
     {
         if ($this->return_status == 200)
-            return true;
-        if ($this->return_data === false)
-            return false;
-        if ($this->return_status == 401)
-            throw new \Exception("Unauthorized!");
-        if ($this->return_status == 403)
-            throw new \Exception("Forbidden!");
-        if ($this->return_status == 404)
-            throw new \Exception("Not found!");
-        if ($this->return_status == 500)
-            throw new \Exception("Internal Server Error!");
-        if ($this->return_status == 502)
-            throw new \Exception("Bad Gateway!");
-        if ($this->return_status == 503)
-            throw new \Exception("Service Unavailable!");
-        throw new \Exception("Any other error. Return code no.: " . $this->return_status);
+            return;
+        $this->error = "Zcash rpc daemon: ";
+        if ($this->return_data === false) {
+            $this->error .= "Not running.";
+            return;
+        }
+        if ($this->return_status == 401) {
+            $this->error .= "Unauthorized!";
+            return;
+        }
+        if ($this->return_status == 403) {
+            $this->error .= "Forbidden!";
+            return;
+        }
+        if ($this->return_status == 404) {
+            $this->error .= "Not found!";
+            return;
+        }
+        if ($this->return_status == 500) {
+            $this->error .= "Internal Server Error!";
+            return;
+        }
+        if ($this->return_status == 502) {
+            $this->error .= "Bad Gateway!";
+            return;
+        }
+        if ($this->return_status == 503) {
+            $this->error .= "Service Unavailable!";
+            return;
+        }
+        if (is_numeric($this->return_status))
+            $this->error .= "Any other error. Return code: " . $this->return_status;
+        return;
     }
 }
