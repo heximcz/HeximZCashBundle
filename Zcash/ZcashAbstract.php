@@ -6,7 +6,6 @@
 
 namespace Hexim\HeximZcashBundle\Zcash;
 
-
 class ZcashAbstract
 {
     /**
