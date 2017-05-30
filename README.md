@@ -46,7 +46,7 @@ Usage
 In your application controller methods:
 
 ```php
-public function yourAction(User $user)
+public function yourAction(Request $request)
 {
         $wallet = $this->get('hexim_zcash.wallet');
         if (!$walletInfo = $wallet->getWalletInfo()) {
@@ -58,7 +58,7 @@ public function yourAction(User $user)
 ```
 
 ```php
-public function yourAction(User $user)
+public function yourAction(Request $request)
 {
         $wallet = $this->get('hexim_zcash.wallet');
         $walletInfo = $wallet->getWalletInfo();
