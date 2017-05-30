@@ -32,7 +32,7 @@ Installation
         rpc_user: "%zcash_rpc_user%"
         rpc_port: "%zcash_rpc_port%"
     ```
-    ```
+    ``` yaml
     # app/config/parameters.yml
     parameters:
         zcash_rpc_password: password
