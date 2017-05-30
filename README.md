@@ -70,19 +70,18 @@ public function yourAction(Request $request)
 ```php
 public function yourAction(Request $request)
 {
-            $myAddress = "t1ededed...";
+        $myAddress = "t1ededed...";
 
-            $zcashUtil = $this->get('hexim_zcash.util');
-            if ($data = $zcashUtil->validateAddress($myAddress) {
-                if (!$data['result']['isvalid']) {
-                    $this->addFlash('error', ' Sorry but this tAddress is not valid zcash address.');
-                    return $this->render('any.html.twig', [
-                        'route' => 'list',
-                        'apiForm' => $form->createView(),
-                    ]);
-                }
+        $zcashUtil = $this->get('hexim_zcash.util');
+        if ($data = $zcashUtil->validateAddress($myAddress) {
+            if (!$data['result']['isvalid']) {
+                $this->addFlash('error', ' Sorry but this tAddress is not valid zcash address.');
+                return $this->render('any.html.twig', [
+                    'anyForm' => $form->createView(),
+                ]);
             }
+        }
 
-            ...
+        ...
 }
 ```
