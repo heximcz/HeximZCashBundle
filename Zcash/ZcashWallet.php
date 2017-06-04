@@ -6,6 +6,8 @@
 
 namespace Hexim\HeximZcashBundle\Zcash;
 
+use function Symfony\Component\Debug\Tests\testHeader;
+
 class ZcashWallet extends ZcashAbstract implements ZcashWalletInterface
 {
 
@@ -14,7 +16,10 @@ class ZcashWallet extends ZcashAbstract implements ZcashWalletInterface
      */
     public function getWalletInfo()
     {
-        return $this->getRpcResult('getwalletinfo',[]);
+        $this->result = $this->getRpcResult('getwalletinfo',[]);
+        if (is_array($this->checkResponse()))
+            $this->fixScientificNumbers();
+        return $this->result;
     }
 
     /**

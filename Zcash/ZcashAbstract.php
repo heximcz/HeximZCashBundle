@@ -102,6 +102,8 @@ class ZcashAbstract
     protected function fixScientificNumbers()
     {
         foreach ($this->result['result'] as $key => $value) {
+            if (isset($value['balance']))
+                $this->result['result'][$key]['balance'] = $this->convertScientificFloat($value['balance']);
             if (isset($value['amount']))
                 $this->result['result'][$key]['amount'] = $this->convertScientificFloat($value['amount']);
             if (isset($value['fee']))
